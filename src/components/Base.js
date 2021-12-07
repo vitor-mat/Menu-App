@@ -4,7 +4,19 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Base = ({ addBase, pizza }) => {
-  const bases = ['pizza', 'hamburguer', 'lasanha', 'cachorro quente'];
+  const bases = [{
+    title: 'pizza',
+    price: "22.00", 
+  },{
+    title: 'hamburguer', 
+    price: "05.45",
+  },{
+    title: 'lasanha',
+    price: "08.00",
+  },{
+    title: 'cachorro quente',
+    price: "5.00",
+  }];
 
   const containerVariants = {
     hidden: {
@@ -62,13 +74,19 @@ const Base = ({ addBase, pizza }) => {
       <h3>Lanches: Faça seu pedido</h3>
       <ul>
         {bases.map(base => {
-          let spanClass = pizza.base.includes(base) ? 'active' : '';
+          let spanClassTitle = pizza.base.includes(base.title) ? 'active-title' : '';
+          let spanClass = pizza.base.includes(base.title) ? 'active' : '';
           return (
-            <motion.li key={base} onClick={() => addBase(base)}
-              whileHover={{ scale: 1.3, originX: 0, color: "#f8e112" }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <span className={spanClass}>{base}</span>
+            <motion.li key={base} onClick={() => addBase(base.title)}>
+              <motion.span
+                className={spanClassTitle}
+                whileHover={{ scale: 1.3, originX: 0, color: "#f8e112" }}
+                transition={{ type: "spring", stiffness: 300 }}  
+              >
+                {base.title}
+              </motion.span>
+              <span className={spanClass}>{`R$${Number(base.price).toFixed(2)}`}</span>
+
             </motion.li>
           )
         })}

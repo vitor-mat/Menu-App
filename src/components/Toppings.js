@@ -5,7 +5,19 @@ import { motion } from 'framer-motion';
 
 const Toppings = ({ addTopping, pizza }) => {
 
-  let toppings = ['capuccino', 'água com gás', 'refrigerante', 'suco de laranja'];
+  let toppings = [{
+    title: 'capuccino',
+    price: '5.00',
+  },{
+    title: 'água com gás',
+    price: '2.00',
+  },{
+    title: 'refrigerante',
+    price: '3.50',
+  },{
+    title: 'suco de laranja',
+    price: '4.50'
+  }];
 
   const containerVariants = {
     hidden: {
@@ -50,13 +62,18 @@ const Toppings = ({ addTopping, pizza }) => {
       <h3>Bebidas: Faça seu pedido</h3>
       <ul>
         {toppings.map(topping => {
-          let spanClass = pizza.toppings.includes(topping) ? 'active' : '';
+          let spanClassTitle = pizza.toppings.includes(topping.title) ? 'active-title' : '';
+          let spanClass = pizza.toppings.includes(topping.title) ? 'active' : '';
           return (
-            <motion.li key={topping} onClick={() => addTopping(topping)}
-              whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
-              transition={{type:"spring", stiffness:300}}
-            >
-              <span className={spanClass}>{topping}</span>
+            <motion.li key={topping.title} onClick={() => addTopping(topping.title)}>
+              <motion.span
+                className={spanClassTitle}
+                whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
+                transition={{type:"spring", stiffness:300}}
+              >
+                {topping.title}
+              </motion.span>
+              <span className={spanClass}>{`R$${topping.price}`}</span>
             </motion.li>
           )
         })}

@@ -72,10 +72,18 @@ header .pizza-svg {
 }
 
 /* lists */
+li{
+  display: flex;
+  justify-content: space-between;
+}
+
 li span.active{
   font-weight: bold;
 }
-li span.active::before{
+li span.active-title{
+  font-weight: bold;
+}
+li span.active-title::before{
   content: '>';
   position: relative;
   top: -2px;
