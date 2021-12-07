@@ -62,7 +62,7 @@ const Base = ({ addBase, pizza }) => {
       <h3>Lanches: Faça seu pedido</h3>
       <ul>
         {bases.map(base => {
-          let spanClass = pizza.base === base ? 'active' : '';
+          let spanClass = pizza.base.includes(base) ? 'active' : '';
           return (
             <motion.li key={base} onClick={() => addBase(base)}
               whileHover={{ scale: 1.3, originX: 0, color: "#f8e112" }}

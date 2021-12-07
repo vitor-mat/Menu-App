@@ -13,12 +13,18 @@ function App() {
 
   const location = useLocation();
 
-  const [pizza, setPizza] = useState({ base: "", toppings: [] });
+  const [pizza, setPizza] = useState({ base: [], toppings: [] });
 
   const [showModal, setShowModal] = useState(false)
 
   const addBase = (base) => {
-    setPizza({ ...pizza, base })
+    let newBase;
+    if(!pizza.base.includes(base)){
+      newBase = [...pizza.base, base]
+    }else{
+      newBase = pizza.base.filter(item => item!== base)
+    }
+    setPizza({ ...pizza, base: newBase });
   }
 
   const addTopping = (topping) => {
