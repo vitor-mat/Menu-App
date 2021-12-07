@@ -83,7 +83,7 @@ const Base = ({ addBase, pizza }) => {
               variants={buttonVariants}
               whileHover="hover"
             >
-              Next
+              Próximo
             </motion.button>
           </Link>
         </motion.div>

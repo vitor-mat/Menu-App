@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const Toppings = ({ addTopping, pizza }) => {
 
-  let toppings = ['mushrooms', 'peppers', 'onions', 'olives', 'extra cheese', 'tomatoes'];
+  let toppings = ['capuccino', 'água com gás', 'refrigerante', 'suco de laranja'];
 
   const containerVariants = {
     hidden: {
@@ -47,7 +47,7 @@ const Toppings = ({ addTopping, pizza }) => {
       exit="exit"
     >
 
-      <h3>Step 2: Choose Toppings</h3>
+      <h3>Bebidas: Faça seu pedido</h3>
       <ul>
         {toppings.map(topping => {
           let spanClass = pizza.toppings.includes(topping) ? 'active' : '';
@@ -67,7 +67,7 @@ const Toppings = ({ addTopping, pizza }) => {
           variants={buttonVariants}
           whileHover="hover"
         >
-          Order
+          Próximo
         </motion.button>
       </Link>
 
