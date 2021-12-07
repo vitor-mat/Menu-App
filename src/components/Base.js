@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Base = ({ addBase, pizza }) => {
-  const bases = ['Classic', 'Thin & Crispy', 'Thick Crust'];
+  const bases = ['pizza', 'hamburguer', 'lasanha', 'cachorro quente'];
 
   const containerVariants = {
     hidden: {
@@ -59,7 +59,7 @@ const Base = ({ addBase, pizza }) => {
       exit="exit"
     >
 
-      <h3>Step 1: Choose Your Base</h3>
+      <h3>Lanches: Faça seu pedido</h3>
       <ul>
         {bases.map(base => {
           let spanClass = pizza.base === base ? 'active' : '';
