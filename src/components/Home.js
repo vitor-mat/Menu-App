@@ -43,7 +43,7 @@ const Home = () => {
       exit="exit"
     >
       <h2>
-        Welcome to Pizza Joint
+        Bem-vindo ao Mateus!
       </h2>
       <Link to="/base">
         <motion.button
