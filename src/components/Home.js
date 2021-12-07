@@ -50,7 +50,7 @@ const Home = () => {
           variants={buttonVariants}
           whileHover="hover"
         >
-          Create Your Pizza
+          Faça seu pedido
         </motion.button>
       </Link>
     </motion.div>
