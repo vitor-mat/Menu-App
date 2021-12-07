@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
-const Toppings = ({ addTopping, pizza }) => {
+const Desserts = ({ addDessert, pizza }) => {
 
-  let toppings = ['capuccino', 'água com gás', 'refrigerante', 'suco de laranja'];
+  let desserts = ['bolo','pavê', 'pudim', 'sorvete'];
 
   const containerVariants = {
     hidden: {
@@ -47,27 +47,27 @@ const Toppings = ({ addTopping, pizza }) => {
       exit="exit"
     >
 
-      <h3>Bebidas: Faça seu pedido</h3>
+      <h3>Sobre Mesas: Faça seu pedido</h3>
       <ul>
-        {toppings.map(topping => {
-          let spanClass = pizza.toppings.includes(topping) ? 'active' : '';
+        {desserts.map(dessert => {
+          let spanClass = pizza.desserts.includes(dessert) ? 'active' : '';
           return (
-            <motion.li key={topping} onClick={() => addTopping(topping)}
+            <motion.li key={dessert} onClick={() => addDessert(dessert)}
               whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
               transition={{type:"spring", stiffness:300}}
             >
-              <span className={spanClass}>{topping}</span>
+              <span className={spanClass}>{dessert}</span>
             </motion.li>
           )
         })}
       </ul>
 
-      <Link to="/desserts">
+      <Link to="/order">
         <motion.button
           variants={buttonVariants}
           whileHover="hover"
         >
-          Próximo
+          Finalizar
         </motion.button>
       </Link>
 
@@ -75,4 +75,4 @@ const Toppings = ({ addTopping, pizza }) => {
   )
 }
 
-export default Toppings;
+export default Desserts;

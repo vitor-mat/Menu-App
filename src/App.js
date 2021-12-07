@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Base from './components/Base';
 import Toppings from './components/Toppings';
+import Desserts from './components/Desserts';
 import Modal from './components/Modal';
 import Order from './components/Order';
 
@@ -13,7 +14,7 @@ function App() {
 
   const location = useLocation();
 
-  const [pizza, setPizza] = useState({ base: [], toppings: [] });
+  const [pizza, setPizza] = useState({ base: [], toppings: [], desserts: [] });
 
   const [showModal, setShowModal] = useState(false)
 
@@ -37,6 +38,16 @@ function App() {
     setPizza({ ...pizza, toppings: newToppings });
   }
 
+  const addDessert = (dessert) => {
+    let newDesserts;
+    if (!pizza.desserts.includes(dessert)) {
+      newDesserts = [...pizza.desserts, dessert];
+    } else {
+      newDesserts = pizza.desserts.filter(item => item !== dessert);
+    }
+    setPizza({ ...pizza, desserts: newDesserts });
+  }
+
   return (
     <>
       <Header />
@@ -48,6 +59,9 @@ function App() {
           </Route>
           <Route path="/toppings">
             <Toppings addTopping={addTopping} pizza={pizza} />
+          </Route>
+          <Route path="/desserts">
+            <Desserts addDessert={addDessert} pizza={pizza} />
           </Route>
           <Route path="/order">
             <Order pizza={pizza} setShowModal={setShowModal} />
