@@ -52,6 +52,28 @@ button{
   cursor: pointer;
 }
 
+.container input{
+  width: 40px;
+  height: 100%;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  color: white;
+  font-size: 16px;
+  border-radius: 3px;
+  padding: 1px 1px 1px 5px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.container input::placeholder{
+  font-weight: 300;
+}
+
+.container input:focus{
+  outline: none;
+  border: none;
+}
+
 /* header */
 header{
   display: flex;
@@ -78,6 +100,12 @@ header .pizza-svg {
 
 /* lists */
 li{
+  display: flex;
+  justify-content: space-between;
+}
+li .li-div-name-and-price-item{
+  flex: 1;
+  margin-right: 10px;
   display: flex;
   justify-content: space-between;
 }

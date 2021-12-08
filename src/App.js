@@ -25,53 +25,91 @@ function App() {
     setTotalPrice(totalPrice += price)
   }
 
-  const addBase = (base) => {
+  const addBase = (base, amount, start, up) => {
     let newBase;
     let newPrice;
 
-    if(!pizza.base.includes(base.title)){
-      newBase = [...pizza.base, base.title]
-      newPrice = Number(base.price)
-      addPrice(newPrice)
+    if(start){
+      if(!pizza.base.includes(base.title)){
+        newBase = [...pizza.base, base.title]
+        newPrice = Number(base.price)*amount
+        addPrice(newPrice)
+      }else{
+        newBase = pizza.base.filter(item => item !== base.title)
+        newPrice = Number(base.price)*amount
+        addPrice(-newPrice)
+      }
+
+      setPizza({ ...pizza, base: newBase });
     }else{
-      newBase = pizza.base.filter(item => item !== base.title)
-      newPrice = Number(base.price)
-      addPrice(-newPrice)
+      if(up){
+        newPrice = totalPrice+Number(amount)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }else{
+        newPrice = totalPrice-Number(amount)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }
     }
-    setPizza({ ...pizza, base: newBase });
+
   }
 
-  const addTopping = (topping) => {
+  const addTopping = (topping, amount, start, up) => {
     let newToppings;
     let newPrice;
 
-    if (!pizza.toppings.includes(topping.title)) {
-      newToppings = [...pizza.toppings, topping.title];
-      newPrice = Number(topping.price)
-      addPrice(newPrice)
-    } else {
-      newToppings = pizza.toppings.filter(item => item !== topping.title);
-      newPrice = Number(topping.price)
-      addPrice(-newPrice)
-
+    if(start){
+      if (!pizza.toppings.includes(topping.title)) {
+        newToppings = [...pizza.toppings, topping.title];
+        newPrice = Number(topping.price)*amount
+        addPrice(newPrice)
+      } else {
+        newToppings = pizza.toppings.filter(item => item !== topping.title);
+        newPrice = Number(topping.price)*amount
+        addPrice(-newPrice)
+      }
+      setPizza({ ...pizza, toppings: newToppings });
+    }else{
+      if(up){
+        newPrice = totalPrice+Number(amount)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }else{
+        newPrice = totalPrice-Number(amount)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }
     }
-    setPizza({ ...pizza, toppings: newToppings });
   }
 
-  const addDessert = (dessert) => {
+  const addDessert = (dessert, amount, start, up) => {
     let newDesserts;
     let newPrice;
 
-    if (!pizza.desserts.includes(dessert.title)) {
-      newDesserts = [...pizza.desserts, dessert.title];
-      newPrice = Number(dessert.price)
-      addPrice(newPrice)
-    } else {
-      newDesserts = pizza.desserts.filter(item => item !== dessert.title);
-      newPrice = Number(dessert.price)
-      addPrice(-newPrice)
+    if(start){
+      if (!pizza.desserts.includes(dessert.title)) {
+        newDesserts = [...pizza.desserts, dessert.title];
+        newPrice = Number(dessert.price)*amount
+        addPrice(newPrice)
+      } else {
+        newDesserts = pizza.desserts.filter(item => item !== dessert.title);
+        newPrice = Number(dessert.price)*amount
+        addPrice(-newPrice)
+      }
+      setPizza({ ...pizza, desserts: newDesserts });
+    }else{
+      if(up){
+        newPrice = totalPrice+Number(amount)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }else{
+        newPrice = totalPrice-Number(amount)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }
     }
-    setPizza({ ...pizza, desserts: newDesserts });
+
   }
 
   return (

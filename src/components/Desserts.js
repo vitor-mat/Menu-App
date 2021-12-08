@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
 const Desserts = ({ addDessert, pizza, totalPrice }) => {
 
-  let desserts = [{
+  let [desserts, setDesserts] = useState([{
+    id: 0,
     title: 'bolo',
     price: '5.00',
+    amount: 1,
   },{
+    id: 1,
     title: 'pavê',
     price: '4.50',
+    amount: 1,
   },{
+    id: 2,
     title: 'pudim',
-    price: '3.50'
+    price: '3.50',
+    amount: 1,
   },{
+    id: 3,
     title: 'sorvete',
-    price: '3.00'
-  }];
+    price: '3.00',
+    amount: 1,
+  }])
 
   const containerVariants = {
     hidden: {
@@ -51,6 +59,32 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
     }
   }
 
+  let [up, setUp] = useState(false);
+
+  const updateAmount = (e, dessert) => {
+
+    if(e.target.value <=0){
+      let newDessert = desserts.filter(value =>  value===dessert)[0]
+      let oldDessert = desserts.filter(value =>  value!==dessert)
+      newDessert.amount = 1
+      let joinArray = [...oldDessert, newDessert].sort((a, b) => a.id > b.id ? 1 : -1)
+      setDesserts(joinArray)
+      return;
+    }
+
+    let newDessert = desserts.filter(value =>  value===dessert)[0]
+    let oldDessert = desserts.filter(value =>  value!==dessert)
+    setUp(up = dessert.amount < e.target.value)
+
+    if(Number(dessert.amount) === 2 && !up){
+      setUp(up = '2')
+    }
+
+    newDessert.amount = e.target.value 
+    let joinArray = [...oldDessert, newDessert].sort((a, b) => a.id > b.id ? 1 : -1)
+    setDesserts(joinArray)
+  }
+
   return (
     <motion.div className="toppings container"
       variants={containerVariants}
@@ -65,15 +99,44 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
           let spanClassTitle = pizza.desserts.includes(dessert.title) ? 'active-title' : '';
           let spanClass = pizza.desserts.includes(dessert.title) ? 'active' : '';
           return (
-            <motion.li key={dessert} onClick={() => addDessert(dessert)}>
-              <motion.span
-                className={spanClassTitle}
-                whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
-                transition={{type:"spring", stiffness:300}}
-              >
-                {dessert.title}
-              </motion.span>
-              <span className={spanClass}>{`R$${dessert.price}`}</span>
+            <motion.li key={dessert}>
+              <div className="li-div-name-and-price-item">
+                <motion.span
+                  className={spanClassTitle}
+                  whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
+                  transition={{type:"spring", stiffness:300}}
+                  onClick={() => addDessert(dessert, dessert.amount, true)}
+                >
+                  {dessert.title}
+                </motion.span>
+                <span
+                  className={spanClass}
+                  onClick={() => addDessert(dessert, dessert.amount, true)}
+                >
+                  {`R$${dessert.price}`}
+                </span>
+              </div>
+              <input
+                type="number"
+                min="1"
+                onChange={async (e) => await updateAmount(e, dessert)}
+                value={dessert.amount}
+                onKeyPress={(e) => updateAmount(e, dessert)}
+                onClick={(e) => {
+
+                  if(spanClassTitle){
+                    if(Number(e.target.value) === 1 && !up){
+                      return;
+                    }
+
+                    if(Number(e.target.value) === 1 && up === '2'){
+                      setUp(up = false)
+                    }
+
+                    addDessert(dessert, dessert.price, false, up)
+                  }
+                }}
+              />
             </motion.li>
           )
         })}

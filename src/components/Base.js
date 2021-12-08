@@ -1,22 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
 const Base = ({ addBase, pizza, totalPrice }) => {
-  const bases = [{
+  let [bases, setBases] = useState([{
+    id: 0,
     title: 'pizza',
-    price: "22.00", 
+    price: "22.00",
+    amount: 1 
   },{
+    id: 1,
     title: 'hamburguer', 
     price: "05.45",
+    amount: 1 
   },{
+    id: 2,
     title: 'lasanha',
     price: "08.00",
+    amount: 1 
   },{
+    id: 3,
     title: 'cachorro quente',
     price: "5.00",
-  }];
+    amount: 1 
+  }])
 
   const containerVariants = {
     hidden: {
@@ -63,6 +71,32 @@ const Base = ({ addBase, pizza, totalPrice }) => {
     }
   }
 
+  let [up, setUp] = useState(false);
+
+  const updateAmount = (e, base) => {
+
+    if(e.target.value <=0){
+      let newBase = bases.filter(value =>  value===base)[0]
+      let oldBase = bases.filter(value =>  value!==base)
+      newBase.amount = 1
+      let joinArray = [...oldBase, newBase].sort((a, b) => a.id > b.id ? 1 : -1)
+      setBases(joinArray)
+      return;
+    }
+
+    let newBase = bases.filter(value =>  value===base)[0]
+    let oldBase = bases.filter(value =>  value!==base)
+    setUp(up = base.amount < e.target.value)
+
+    if(Number(base.amount) === 2 && !up){
+      setUp(up = '2')
+    }
+    console.log(up)
+    newBase.amount = e.target.value 
+    let joinArray = [...oldBase, newBase].sort((a, b) => a.id > b.id ? 1 : -1)
+    setBases(joinArray)
+  }
+
   return (
     <motion.div className="base container"
       variants={containerVariants}
@@ -73,20 +107,48 @@ const Base = ({ addBase, pizza, totalPrice }) => {
       <h2>{`Total: R$${totalPrice.toFixed(2)}`}</h2>
       <h3>Lanches: Faça seu pedido</h3>
       <ul>
-        {bases.map(base => {
+        {bases.map((base, index) => {
           let spanClassTitle = pizza.base.includes(base.title) ? 'active-title' : '';
           let spanClass = pizza.base.includes(base.title) ? 'active' : '';
           return (
-            <motion.li key={base.title} onClick={() => addBase(base)}>
-              <motion.span
-                className={spanClassTitle}
-                whileHover={{ scale: 1.3, originX: 0, color: "#f8e112" }}
-                transition={{ type: "spring", stiffness: 300 }}  
-              >
-                {base.title}
-              </motion.span>
-              <span className={spanClass}>{`R$${Number(base.price).toFixed(2)}`}</span>
+            <motion.li key={base.title}>
+              <div className="li-div-name-and-price-item">
+                <motion.span
+                  className={spanClassTitle}
+                  whileHover={{ scale: 1.3, originX: 0, color: "#f8e112" }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  onClick={() => addBase(base, base.amount, true)}  
+                >
+                  {base.title}
+                </motion.span>
+                <span
+                  className={spanClass}
+                  onClick={() => addBase(base, base.amount, true)}
+                >
+                  {`R$${Number(base.price).toFixed(2)}`}
+                </span>
+              </div>
+              <input
+                type="number"
+                min="1"
+                onChange={async (e) => await updateAmount(e, base)}
+                value={base.amount}
+                onKeyPress={(e) => updateAmount(e, base)}
+                onClick={(e) => {
 
+                  if(spanClassTitle){
+                    if(Number(e.target.value) === 1 && !up){
+                      return;
+                    }
+
+                    if(Number(e.target.value) === 1 && up === '2'){
+                      setUp(up = false)
+                    }
+
+                    addBase(base, base.price, false, up)
+                  }
+                }}
+              />
             </motion.li>
           )
         })}
