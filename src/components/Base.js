@@ -91,7 +91,6 @@ const Base = ({ addBase, pizza, totalPrice }) => {
     if(Number(base.amount) === 2 && !up){
       setUp(up = '2')
     }
-    console.log(up)
     newBase.amount = e.target.value 
     let joinArray = [...oldBase, newBase].sort((a, b) => a.id > b.id ? 1 : -1)
     setBases(joinArray)

@@ -99,7 +99,7 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
           let spanClassTitle = pizza.desserts.includes(dessert.title) ? 'active-title' : '';
           let spanClass = pizza.desserts.includes(dessert.title) ? 'active' : '';
           return (
-            <motion.li key={dessert}>
+            <motion.li key={dessert.title}>
               <div className="li-div-name-and-price-item">
                 <motion.span
                   className={spanClassTitle}
