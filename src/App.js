@@ -14,36 +14,62 @@ function App() {
 
   const location = useLocation();
 
-  const [pizza, setPizza] = useState({ base: [], toppings: [], desserts: [] });
+  const [pizza, setPizza] = useState({ base: [], toppings: [], desserts: []});
+
+  let [totalPrice, setTotalPrice] = useState(0);
 
   const [showModal, setShowModal] = useState(false)
 
+
+  const addPrice = (price) => {
+    setTotalPrice(totalPrice += price)
+  }
+
   const addBase = (base) => {
     let newBase;
-    if(!pizza.base.includes(base)){
-      newBase = [...pizza.base, base]
+    let newPrice;
+
+    if(!pizza.base.includes(base.title)){
+      newBase = [...pizza.base, base.title]
+      newPrice = Number(base.price)
+      addPrice(newPrice)
     }else{
-      newBase = pizza.base.filter(item => item!== base)
+      newBase = pizza.base.filter(item => item !== base.title)
+      newPrice = Number(base.price)
+      addPrice(-newPrice)
     }
     setPizza({ ...pizza, base: newBase });
   }
 
   const addTopping = (topping) => {
     let newToppings;
-    if (!pizza.toppings.includes(topping)) {
-      newToppings = [...pizza.toppings, topping];
+    let newPrice;
+
+    if (!pizza.toppings.includes(topping.title)) {
+      newToppings = [...pizza.toppings, topping.title];
+      newPrice = Number(topping.price)
+      addPrice(newPrice)
     } else {
-      newToppings = pizza.toppings.filter(item => item !== topping);
+      newToppings = pizza.toppings.filter(item => item !== topping.title);
+      newPrice = Number(topping.price)
+      addPrice(-newPrice)
+
     }
     setPizza({ ...pizza, toppings: newToppings });
   }
 
   const addDessert = (dessert) => {
     let newDesserts;
-    if (!pizza.desserts.includes(dessert)) {
-      newDesserts = [...pizza.desserts, dessert];
+    let newPrice;
+
+    if (!pizza.desserts.includes(dessert.title)) {
+      newDesserts = [...pizza.desserts, dessert.title];
+      newPrice = Number(dessert.price)
+      addPrice(newPrice)
     } else {
-      newDesserts = pizza.desserts.filter(item => item !== dessert);
+      newDesserts = pizza.desserts.filter(item => item !== dessert.title);
+      newPrice = Number(dessert.price)
+      addPrice(-newPrice)
     }
     setPizza({ ...pizza, desserts: newDesserts });
   }
@@ -55,13 +81,13 @@ function App() {
       <AnimatePresence exitBeforeEnter onExitComplete={() => setShowModal(false)}>
         <Switch  key={location.key} location={location}>
           <Route path="/base">
-            <Base addBase={addBase} pizza={pizza} />
+            <Base addBase={addBase} pizza={pizza} totalPrice={totalPrice}/>
           </Route>
           <Route path="/toppings">
-            <Toppings addTopping={addTopping} pizza={pizza} />
+            <Toppings addTopping={addTopping} pizza={pizza} totalPrice={totalPrice}/>
           </Route>
           <Route path="/desserts">
-            <Desserts addDessert={addDessert} pizza={pizza} />
+            <Desserts addDessert={addDessert} pizza={pizza} totalPrice={totalPrice}/>
           </Route>
           <Route path="/order">
             <Order pizza={pizza} setShowModal={setShowModal} />

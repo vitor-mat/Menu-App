@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
-const Base = ({ addBase, pizza }) => {
+const Base = ({ addBase, pizza, totalPrice }) => {
   const bases = [{
     title: 'pizza',
     price: "22.00", 
@@ -70,14 +70,14 @@ const Base = ({ addBase, pizza }) => {
       animate="visible"
       exit="exit"
     >
-
+      <h2>{`Total: R$${totalPrice.toFixed(2)}`}</h2>
       <h3>Lanches: Faça seu pedido</h3>
       <ul>
         {bases.map(base => {
           let spanClassTitle = pizza.base.includes(base.title) ? 'active-title' : '';
           let spanClass = pizza.base.includes(base.title) ? 'active' : '';
           return (
-            <motion.li key={base} onClick={() => addBase(base.title)}>
+            <motion.li key={base.title} onClick={() => addBase(base)}>
               <motion.span
                 className={spanClassTitle}
                 whileHover={{ scale: 1.3, originX: 0, color: "#f8e112" }}

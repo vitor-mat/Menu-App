@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
-const Toppings = ({ addTopping, pizza }) => {
+const Toppings = ({ addTopping, pizza, totalPrice }) => {
 
   let toppings = [{
     title: 'capuccino',
@@ -58,14 +58,14 @@ const Toppings = ({ addTopping, pizza }) => {
       animate="visible"
       exit="exit"
     >
-
+      <h2>{`Total: R$${totalPrice.toFixed(2)}`}</h2>
       <h3>Bebidas: Faça seu pedido</h3>
       <ul>
         {toppings.map(topping => {
           let spanClassTitle = pizza.toppings.includes(topping.title) ? 'active-title' : '';
           let spanClass = pizza.toppings.includes(topping.title) ? 'active' : '';
           return (
-            <motion.li key={topping.title} onClick={() => addTopping(topping.title)}>
+            <motion.li key={topping.title} onClick={() => addTopping(topping)}>
               <motion.span
                 className={spanClassTitle}
                 whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
