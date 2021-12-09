@@ -146,6 +146,10 @@ li span.active-title::before{
   margin: 30px 20px;
 }
 
+.toppings a{
+  margin-right: 5px;
+}
+
 .order-div-items{
   margin-bottom: 20px;
 }
