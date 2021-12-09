@@ -76,10 +76,6 @@ const Toppings = ({ addTopping, pizza, totalPrice }) => {
     let oldTopping = toppings.filter(value =>  value!==topping)
     setUp(up = topping.amount < e.target.value)
 
-    if(Number(topping.amount) === 2 && !up){
-      setUp(up = '2')
-    }
-
     newTopping.amount = e.target.value 
     let joinArray = [...oldTopping, newTopping].sort((a, b) => a.id > b.id ? 1 : -1)
     setToppings(joinArray)
@@ -133,22 +129,13 @@ const Toppings = ({ addTopping, pizza, totalPrice }) => {
               <input
                 type="number"
                 min="1"
-                onChange={async (e) => await updateAmount(e, topping)}
-                value={topping.amount}
-                onKeyPress={(e) => updateAmount(e, topping)}
-                onClick={(e) => {
-
+                onChange={async (e) => {
+                  await updateAmount(e, topping)
                   if(spanClassTitle){
-                    if(Number(e.target.value) === 1 && !up){
-                      return;
-                    }
-
-                    if(Number(e.target.value) === 1 && up === '2'){
-                      setUp(up = false)
-                    }
                     addTopping(topping, topping.amount, false, topping.price, up)
-                  }
+                  }               
                 }}
+                value={topping.amount}
               />
             </motion.li>
           )

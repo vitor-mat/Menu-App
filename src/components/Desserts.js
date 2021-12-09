@@ -76,10 +76,6 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
     let oldDessert = desserts.filter(value =>  value!==dessert)
     setUp(up = dessert.amount < e.target.value)
 
-    if(Number(dessert.amount) === 2 && !up){
-      setUp(up = '2')
-    }
-
     newDessert.amount = e.target.value 
     let joinArray = [...oldDessert, newDessert].sort((a, b) => a.id > b.id ? 1 : -1)
     setDesserts(joinArray)
@@ -134,22 +130,15 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
               <input
                 type="number"
                 min="1"
-                onChange={async (e) => await updateAmount(e, dessert)}
-                value={dessert.amount}
-                onKeyPress={(e) => updateAmount(e, dessert)}
-                onClick={(e) => {
-
+                onChange={async (e) => {
+                  await updateAmount(e, dessert)
+                  
                   if(spanClassTitle){
-                    if(Number(e.target.value) === 1 && !up){
-                      return;
-                    }
-
-                    if(Number(e.target.value) === 1 && up === '2'){
-                      setUp(up = false)
-                    }
                     addDessert(dessert, dessert.amount, false, dessert.price, up)
                   }
+                  
                 }}
+                value={dessert.amount}
               />
             </motion.li>
           )

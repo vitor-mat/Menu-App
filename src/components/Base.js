@@ -88,9 +88,6 @@ const Base = ({ addBase, pizza, totalPrice }) => {
     let oldBase = bases.filter(value =>  value!==base)
     setUp(up = base.amount < e.target.value)
 
-    if(Number(base.amount) === 2 && !up){
-      setUp(up = '2')
-    }
     newBase.amount = e.target.value 
     let joinArray = [...oldBase, newBase].sort((a, b) => a.id > b.id ? 1 : -1)
     setBases(joinArray)
@@ -144,23 +141,13 @@ const Base = ({ addBase, pizza, totalPrice }) => {
               <input
                 type="number"
                 min="1"
-                onChange={async (e) => await updateAmount(e, base)}
-                value={base.amount}
-                onKeyPress={(e) => updateAmount(e, base)}
-                onClick={(e) => {
-
+                onChange={async (e) => {
+                  await updateAmount(e, base)
                   if(spanClassTitle){
-                    if(Number(e.target.value) === 1 && !up){
-                      return;
-                    }
-
-                    if(Number(e.target.value) === 1 && up === '2'){
-                      setUp(up = false)
-                    }
-
                     addBase(base, base.amount, false, base.price, up)
                   }
                 }}
+                value={base.amount}
               />
             </motion.li>
           )
