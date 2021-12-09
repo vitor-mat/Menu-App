@@ -56,18 +56,30 @@ const Order = ({ pizza, setShowModal, totalPrice }) => {
       <h2>Obrigado pelo pedido! :)</h2>
 
       <motion.h2 variants={childVariants}>Seu pedido foi:</motion.h2>
-      <motion.div className="order-div-items" variants={childVariants}>
-        <motion.p className="order-title-items" variants={childVariants}>Lanches:</motion.p>
-        {pizza.base.map(base => <div key={base.title}>{`${base.amount}x ${base.title}`}</div>)}
-      </motion.div>
-      <motion.div className="order-div-items" variants={childVariants}>
-        <motion.p className="order-title-items" variants={childVariants}>Bebidas:</motion.p>
-        {pizza.toppings.map(topping => <div key={topping.title}>{`${topping.amount}x ${topping.title}`}</div>)}
-      </motion.div>
-      <motion.div className="order-div-items" variants={childVariants}>
-        <motion.p className="order-title-items" variants={childVariants}>Sobre mesas:</motion.p>
-        {pizza.desserts.map(dessert => <div key={dessert.title}>{`${dessert.amount}x ${dessert.title}`}</div>)}
-      </motion.div>
+      {
+        pizza.base.length ? (
+          <motion.div className="order-div-items" variants={childVariants}>
+            <motion.p className="order-title-items" variants={childVariants}>Lanches:</motion.p>
+            {pizza.base.map(base => <div key={base.title}>{`${base.amount}x ${base.title}`}</div>)}
+          </motion.div>
+        ) : ("")
+      }
+      {
+        pizza.toppings.length ? (
+          <motion.div className="order-div-items" variants={childVariants}>
+            <motion.p className="order-title-items" variants={childVariants}>Bebidas:</motion.p>
+            {pizza.toppings.map(topping => <div key={topping.title}>{`${topping.amount}x ${topping.title}`}</div>)}
+          </motion.div>
+        ) : ("")
+      }
+      {
+        pizza.desserts.length ? (
+          <motion.div className="order-div-items" variants={childVariants}>
+            <motion.p className="order-title-items" variants={childVariants}>Sobre mesas:</motion.p>
+            {pizza.desserts.map(dessert => <div key={dessert.title}>{`${dessert.amount}x ${dessert.title}`}</div>)}
+          </motion.div>
+        ) : ("")
+      }
 
       <motion.div variants={childVariants}>
         <motion.span className="total-text">{`Total: R$${totalPrice}`}</motion.span>
