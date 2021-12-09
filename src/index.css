@@ -181,11 +181,18 @@ li span.active-title::before{
   text-align: center;
 }
 
-.modal button{
+.modal div button{
   color: #444;
   border-color: #444;
   font-weight: bold;
   margin-top: 20px;
+  width: 150px;
+}
+
+.modal .btns-modal{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
 }
 
 .modal p{

@@ -1,12 +1,12 @@
 import React from 'react';
-import  { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const backdrop = {
     hidden: {
         opacity: 0
     },
-    visible:{
+    visible: {
         opacity: 1
     }
 }
@@ -24,8 +24,8 @@ const modal = {
     }
 }
 
-const Modal = ({ showModal, setShowModal }) => {    
-    return(
+const Modal = ({ showModal, setShowModal }) => {
+    return (
         <AnimatePresence existBeforeEnter>
             {
                 showModal && (
@@ -38,10 +38,15 @@ const Modal = ({ showModal, setShowModal }) => {
                         <motion.div className="modal"
                             variants={modal}
                         >
-                            <p>Want to make another pizza?</p>
-                            <Link to="/">
-                                <button onClick={() => setShowModal(false)}>Start Again</button>
-                            </Link>
+                            <p>Deseja fazer outro pedido?</p>
+                            <div className="btns-modal">
+                                <Link to="/base">
+                                    <button onClick={() => setShowModal(false)}>Pedir</button>
+                                </Link>
+                                <Link to="/">
+                                    <button onClick={() => setShowModal(false)}>Encerrar</button>
+                                </Link>
+                            </div>
                         </motion.div>
                     </motion.div>
                 )
