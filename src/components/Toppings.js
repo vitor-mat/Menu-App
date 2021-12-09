@@ -96,8 +96,22 @@ const Toppings = ({ addTopping, pizza, totalPrice }) => {
       <h3>Bebidas: Faça seu pedido</h3>
       <ul>
         {toppings.map(topping => {
-          let spanClassTitle = pizza.toppings.includes(topping.title) ? 'active-title' : '';
-          let spanClass = pizza.toppings.includes(topping.title) ? 'active' : '';
+
+          let spanClassTitle;
+          let spanClass;
+
+          for(let c=0; c<pizza.toppings.length; c++){
+            if(pizza.toppings[c].title === topping.title){
+              spanClassTitle = 'active-title'
+              spanClass =  'active'
+            }
+          }
+
+          if(!spanClass){
+            spanClassTitle = ''
+            spanClass =  ''
+          }
+
           return (
             <motion.li key={topping.title} >
               <div className="li-div-name-and-price-item">
@@ -105,13 +119,13 @@ const Toppings = ({ addTopping, pizza, totalPrice }) => {
                   className={spanClassTitle}
                   whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
                   transition={{type:"spring", stiffness:300}}
-                  onClick={() => addTopping(topping, topping.amount, true)}
+                  onClick={() => addTopping(topping, topping.amount, true, topping.price, up)}
                 >
                   {topping.title}
                 </motion.span>
                 <span
                   className={spanClass}
-                  onClick={() => addTopping(topping, topping.amount, true)}
+                  onClick={() => addTopping(topping, topping.amount, true, topping.price, up)}
                 >
                   {`R$${topping.price}`}
                 </span>
@@ -132,8 +146,7 @@ const Toppings = ({ addTopping, pizza, totalPrice }) => {
                     if(Number(e.target.value) === 1 && up === '2'){
                       setUp(up = false)
                     }
-
-                    addTopping(topping, topping.price, false, up)
+                    addTopping(topping, topping.amount, false, topping.price, up)
                   }
                 }}
               />

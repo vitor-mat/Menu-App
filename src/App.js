@@ -23,90 +23,183 @@ function App() {
 
   const addPrice = (price) => {
     setTotalPrice(totalPrice += price)
+    if(totalPrice<=0){
+      setTotalPrice(totalPrice = 0)
+    }
   }
 
-  const addBase = (base, amount, start, up) => {
-    let newBase;
+  const addBase = (base, amount, start, price, up) => {
+    let newBase = [];
     let newPrice;
 
     if(start){
-      if(!pizza.base.includes(base.title)){
-        newBase = [...pizza.base, base.title]
+
+      if(pizza.base.length === 0){
+        newBase = [...pizza.base, {
+          title: base.title,
+          amount
+        }]
         newPrice = Number(base.price)*amount
         addPrice(newPrice)
       }else{
-        newBase = pizza.base.filter(item => item !== base.title)
-        newPrice = Number(base.price)*amount
-        addPrice(-newPrice)
+
+        for(let c=0; c<pizza.base.length; c++){
+
+          if(pizza.base[c].title === base.title){
+            newBase = pizza.base.filter(item => item.title !== base.title)
+            newPrice = Number(base.price)*amount
+            addPrice(-newPrice)
+            break
+          }
+
+        }
+
+        if(!newBase.length && !newPrice){
+            newBase = [...pizza.base, {
+              title: base.title,
+              amount
+            }]
+            newPrice = Number(base.price)*amount
+            addPrice(newPrice)
+        }
+        
       }
 
       setPizza({ ...pizza, base: newBase });
     }else{
       if(up){
-        newPrice = totalPrice+Number(amount)
+        newPrice = totalPrice+Number(price)
         setTotalPrice(totalPrice = 0)
         addPrice(newPrice)
       }else{
-        newPrice = totalPrice-Number(amount)
+        newPrice = totalPrice-Number(price)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }
+
+      for(let c=0; c<pizza.base.length; c++){
+        if(pizza.base[c].title === base.title){
+          pizza.base[c].amount = amount
+        }
+      }
+
+    }
+
+  }
+
+  const addTopping = (topping, amount, start, price, up) => {
+    let newTopping = [];
+    let newPrice;
+
+    if(start){
+
+      if(pizza.toppings.length === 0){
+        newTopping = [...pizza.toppings, {
+          title: topping.title,
+          amount
+        }]
+        newPrice = Number(topping.price)*amount
+        addPrice(newPrice)
+      }else{
+
+        for(let c=0; c<pizza.toppings.length; c++){
+
+          if(pizza.toppings[c].title === topping.title){
+            newTopping = pizza.toppings.filter(item => item.title !== topping.title)
+            newPrice = Number(topping.price)*amount
+            addPrice(-newPrice)
+            break
+          }
+
+        }
+
+        if(!newTopping.length && !newPrice){
+            newTopping = [...pizza.toppings, {
+              title: topping.title,
+              amount
+            }]
+            newPrice = Number(topping.price)*amount
+            addPrice(newPrice)
+        }
+        
+      }
+
+      setPizza({ ...pizza, toppings: newTopping });
+    }else{
+
+      if(up){
+        newPrice = totalPrice+Number(price)
+        setTotalPrice(totalPrice = 0)
+        addPrice(newPrice)
+      }else{
+        newPrice = totalPrice-Number(price)
         setTotalPrice(totalPrice = 0)
         addPrice(newPrice)
       }
     }
 
+    for(let c=0; c<pizza.toppings.length; c++){
+      if(pizza.toppings[c].title === topping.title){
+        pizza.toppings[c].amount = amount
+      }
+    }
+
   }
 
-  const addTopping = (topping, amount, start, up) => {
-    let newToppings;
+  const addDessert = (dessert, amount, start, price, up) => {
+    let newDessert = [];
     let newPrice;
 
     if(start){
-      if (!pizza.toppings.includes(topping.title)) {
-        newToppings = [...pizza.toppings, topping.title];
-        newPrice = Number(topping.price)*amount
+
+      if(pizza.desserts.length === 0){
+        newDessert= [...pizza.desserts, {
+          title: dessert.title,
+          amount
+        }]
+        newPrice = Number(price)*amount
         addPrice(newPrice)
-      } else {
-        newToppings = pizza.toppings.filter(item => item !== topping.title);
-        newPrice = Number(topping.price)*amount
-        addPrice(-newPrice)
+      }else{
+
+        for(let c=0; c<pizza.desserts.length; c++){
+
+          if(pizza.desserts[c].title === dessert.title){
+            newDessert = pizza.desserts.filter(item => item.title !== dessert.title)
+            newPrice = Number(dessert.price)*amount
+            addPrice(-newPrice)
+            break
+          }
+
+        }
+
+        if(!newDessert.length && !newPrice){
+            newDessert = [...pizza.desserts, {
+              title: dessert.title,
+              amount
+            }]
+            newPrice = Number(dessert.price)*amount
+            addPrice(newPrice)
+        }
+        
       }
-      setPizza({ ...pizza, toppings: newToppings });
+
+      setPizza({ ...pizza, desserts: newDessert });
     }else{
+
       if(up){
-        newPrice = totalPrice+Number(amount)
+        newPrice = totalPrice+Number(price)
         setTotalPrice(totalPrice = 0)
         addPrice(newPrice)
       }else{
-        newPrice = totalPrice-Number(amount)
+        newPrice = totalPrice-Number(price)
         setTotalPrice(totalPrice = 0)
         addPrice(newPrice)
       }
     }
-  }
 
-  const addDessert = (dessert, amount, start, up) => {
-    let newDesserts;
-    let newPrice;
-
-    if(start){
-      if (!pizza.desserts.includes(dessert.title)) {
-        newDesserts = [...pizza.desserts, dessert.title];
-        newPrice = Number(dessert.price)*amount
-        addPrice(newPrice)
-      } else {
-        newDesserts = pizza.desserts.filter(item => item !== dessert.title);
-        newPrice = Number(dessert.price)*amount
-        addPrice(-newPrice)
-      }
-      setPizza({ ...pizza, desserts: newDesserts });
-    }else{
-      if(up){
-        newPrice = totalPrice+Number(amount)
-        setTotalPrice(totalPrice = 0)
-        addPrice(newPrice)
-      }else{
-        newPrice = totalPrice-Number(amount)
-        setTotalPrice(totalPrice = 0)
-        addPrice(newPrice)
+    for(let c=0; c<pizza.desserts.length; c++){
+      if(pizza.desserts[c].title === dessert.title){
+        pizza.desserts[c].amount = amount
       }
     }
 
@@ -128,7 +221,7 @@ function App() {
             <Desserts addDessert={addDessert} pizza={pizza} totalPrice={totalPrice}/>
           </Route>
           <Route path="/order">
-            <Order pizza={pizza} setShowModal={setShowModal} />
+            <Order pizza={pizza} setShowModal={setShowModal} totalPrice={totalPrice}/>
           </Route>
           <Route path="/">
             <Home />

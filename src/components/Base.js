@@ -107,8 +107,22 @@ const Base = ({ addBase, pizza, totalPrice }) => {
       <h3>Lanches: Faça seu pedido</h3>
       <ul>
         {bases.map((base, index) => {
-          let spanClassTitle = pizza.base.includes(base.title) ? 'active-title' : '';
-          let spanClass = pizza.base.includes(base.title) ? 'active' : '';
+          let spanClassTitle;
+          let spanClass;
+
+          for(let c=0; c<pizza.base.length; c++){
+            if(pizza.base[c].title === base.title){
+              spanClassTitle = 'active-title'
+              spanClass =  'active'
+            }
+          }
+
+          if(!spanClass){
+            spanClassTitle = ''
+            spanClass =  ''
+          }
+
+          ;
           return (
             <motion.li key={base.title}>
               <div className="li-div-name-and-price-item">
@@ -116,13 +130,13 @@ const Base = ({ addBase, pizza, totalPrice }) => {
                   className={spanClassTitle}
                   whileHover={{ scale: 1.3, originX: 0, color: "#f8e112" }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  onClick={() => addBase(base, base.amount, true)}  
+                  onClick={() => addBase(base, base.amount, true, base.price, up)}  
                 >
                   {base.title}
                 </motion.span>
                 <span
                   className={spanClass}
-                  onClick={() => addBase(base, base.amount, true)}
+                  onClick={() => addBase(base, base.amount, true, base.price, up)}
                 >
                   {`R$${Number(base.price).toFixed(2)}`}
                 </span>
@@ -144,7 +158,7 @@ const Base = ({ addBase, pizza, totalPrice }) => {
                       setUp(up = false)
                     }
 
-                    addBase(base, base.price, false, up)
+                    addBase(base, base.amount, false, base.price, up)
                   }
                 }}
               />

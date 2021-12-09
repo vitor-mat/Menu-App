@@ -142,8 +142,20 @@ li span.active-title::before{
   border: 3px solid white;
   margin: 30px 20px;
 }
-.order p{
-  margin: 20px auto;
+
+.order-div-items{
+  margin-bottom: 20px;
+}
+
+.order-title-items{
+  font-weight: 700;
+  font-size: 1.2em;
+  margin: 0 0 10px;
+}
+
+.total-text{
+  font-weight: 700;
+  font-size: 1.5em;
 }
 
 /* modal */

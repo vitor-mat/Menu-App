@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import { motion } from 'framer-motion';
 
-const Order = ({ pizza, setShowModal }) => {
+const Order = ({ pizza, setShowModal, totalPrice }) => {
 
   let [showTitle, setShowTitle] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
       setShowModal(true)
-    }, 5000)
+    }, 10000)
   }, [setShowModal])
 
   const containerVariants = {
@@ -29,8 +29,8 @@ const Order = ({ pizza, setShowModal }) => {
         staggerChildren: 0.4,
       }
     },
-    exit:{
-      x:'-100vh',
+    exit: {
+      x: '-100vh',
       transition: {
         ease: 'easeInOut'
       }
@@ -53,11 +53,24 @@ const Order = ({ pizza, setShowModal }) => {
       animate="visible"
       exit="exit"
     >
-    <h2>Thank you for your order :)</h2>
+      <h2>Obrigado pelo pedido! :)</h2>
 
-      <motion.p variants={childVariants}>You ordered a {pizza.base} pizza with:</motion.p>
+      <motion.h2 variants={childVariants}>Seu pedido foi:</motion.h2>
+      <motion.div className="order-div-items" variants={childVariants}>
+        <motion.p className="order-title-items" variants={childVariants}>Lanches:</motion.p>
+        {pizza.base.map(base => <div key={base.title}>{`${base.amount}x ${base.title}`}</div>)}
+      </motion.div>
+      <motion.div className="order-div-items" variants={childVariants}>
+        <motion.p className="order-title-items" variants={childVariants}>Bebidas:</motion.p>
+        {pizza.toppings.map(topping => <div key={topping.title}>{`${topping.amount}x ${topping.title}`}</div>)}
+      </motion.div>
+      <motion.div className="order-div-items" variants={childVariants}>
+        <motion.p className="order-title-items" variants={childVariants}>Sobre mesas:</motion.p>
+        {pizza.desserts.map(dessert => <div key={dessert.title}>{`${dessert.amount}x ${dessert.title}`}</div>)}
+      </motion.div>
+
       <motion.div variants={childVariants}>
-        {pizza.toppings.map(topping => <div key={topping}>{topping}</div>)}
+        <motion.span className="total-text">{`Total: R$${totalPrice}`}</motion.span>
       </motion.div>
     </motion.div>
   )

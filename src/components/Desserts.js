@@ -96,8 +96,23 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
       <h3>Sobre Mesas: Faça seu pedido</h3>
       <ul>
         {desserts.map(dessert => {
-          let spanClassTitle = pizza.desserts.includes(dessert.title) ? 'active-title' : '';
-          let spanClass = pizza.desserts.includes(dessert.title) ? 'active' : '';
+          
+          let spanClassTitle;
+          let spanClass;
+          
+          for(let c=0; c<pizza.desserts.length; c++){
+            if(pizza.desserts[c].title === dessert.title){
+              spanClassTitle = 'active-title'
+              spanClass =  'active'
+            }
+          }
+
+          if(!spanClass){
+            spanClassTitle = ''
+            spanClass =  ''
+          }
+
+          
           return (
             <motion.li key={dessert.title}>
               <div className="li-div-name-and-price-item">
@@ -105,13 +120,13 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
                   className={spanClassTitle}
                   whileHover={{scale:1.3, originX: 0, color:"#f8e112"}}
                   transition={{type:"spring", stiffness:300}}
-                  onClick={() => addDessert(dessert, dessert.amount, true)}
+                  onClick={() => addDessert(dessert, dessert.amount, true, dessert.price, up)}
                 >
                   {dessert.title}
                 </motion.span>
                 <span
                   className={spanClass}
-                  onClick={() => addDessert(dessert, dessert.amount, true)}
+                  onClick={() => addDessert(dessert, dessert.amount, true, dessert.price, up)}
                 >
                   {`R$${dessert.price}`}
                 </span>
@@ -132,8 +147,7 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
                     if(Number(e.target.value) === 1 && up === '2'){
                       setUp(up = false)
                     }
-
-                    addDessert(dessert, dessert.price, false, up)
+                    addDessert(dessert, dessert.amount, false, dessert.price, up)
                   }
                 }}
               />
