@@ -38,10 +38,10 @@ const Modal = ({ showModal, setShowModal }) => {
                         <motion.div className="modal"
                             variants={modal}
                         >
-                            <p>Deseja fazer outro pedido?</p>
+                            <p>Tem certeza do seu pedido?</p>
                             <div className="btns-modal">
                                 <Link to="/base">
-                                    <button onClick={() => setShowModal(false)}>Pedir</button>
+                                    <button onClick={() => setShowModal(false)}>Mudar</button>
                                 </Link>
                                 <Link to="/">
                                     <button onClick={() => setShowModal(false)}>Encerrar</button>
