@@ -216,16 +216,16 @@ function App() {
       <Modal showModal={showModal} setShowModal={setShowModal} clearOrder={clearOrder}/>
       <AnimatePresence exitBeforeEnter onExitComplete={() => setShowModal(false)}>
         <Switch  key={location.key} location={location}>
-          <Route path="/base">
+          <Route path="/lanches">
             <Base addBase={addBase} pizza={pizza} totalPrice={totalPrice}/>
           </Route>
-          <Route path="/toppings">
+          <Route path="/bebidas">
             <Toppings addTopping={addTopping} pizza={pizza} totalPrice={totalPrice}/>
           </Route>
-          <Route path="/desserts">
+          <Route path="/sobre-mesas">
             <Desserts addDessert={addDessert} pizza={pizza} totalPrice={totalPrice}/>
           </Route>
-          <Route path="/order">
+          <Route path="/pedido">
             <Order pizza={pizza} setShowModal={setShowModal} totalPrice={totalPrice}/>
           </Route>
           <Route path="/">

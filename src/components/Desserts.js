@@ -156,7 +156,7 @@ const Desserts = ({ addDessert, pizza, totalPrice }) => {
         })}
       </ul>
 
-      <Link to="/order">
+      <Link to="/pedido">
         <motion.button
           variants={buttonVariants}
           whileHover="hover"

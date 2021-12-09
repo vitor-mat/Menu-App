@@ -45,7 +45,7 @@ const Home = () => {
       <h2>
         Bem-vindo ao Mateus!
       </h2>
-      <Link to="/base">
+      <Link to="/lanches">
         <motion.button
           variants={buttonVariants}
           whileHover="hover"

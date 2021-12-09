@@ -171,7 +171,7 @@ const Base = ({ addBase, pizza, totalPrice }) => {
         <motion.div className="next"
           variants={nextVariants}
         >
-          <Link to="/toppings">
+          <Link to="/bebidas">
             <motion.button
               variants={buttonVariants}
               whileHover="hover"

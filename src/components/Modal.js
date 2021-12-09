@@ -40,7 +40,7 @@ const Modal = ({ showModal, setShowModal, clearOrder }) => {
                         >
                             <p>Tem certeza do seu pedido?</p>
                             <div className="btns-modal">
-                                <Link to="/base">
+                                <Link to="/lanches">
                                     <button onClick={() => setShowModal(false)}>Mudar</button>
                                 </Link>
                                 <Link to="/" onClick={() => clearOrder()}>
