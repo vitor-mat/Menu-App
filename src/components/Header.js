@@ -31,7 +31,7 @@ const pathVariants = {
   }
 }
 
-const Header = () => {
+const Header = ({ clearOrder }) => {
   return (
     <header>
       <motion.div className="logo"
@@ -39,7 +39,7 @@ const Header = () => {
         dragConstraints={{ top: 0, right: 0, bottom: 50, left: 0 }}
         dragElastic={2}
       >
-        <Link to="/home">
+        <Link to="/home" onClick={() => clearOrder()}>
           <motion.svg className="pizza-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
             variants={svgVariants}
             initial="hidden"
@@ -63,7 +63,7 @@ const Header = () => {
         initial={{ y: -250 }}
         transition={{ delay: 0.2, type: "spring", stiffness: 120 }}
       >
-        <Link to="/home">
+        <Link to="/home" onClick={() => clearOrder()}>
           <h1>Menu App</h1>
         </Link>
       </motion.div>

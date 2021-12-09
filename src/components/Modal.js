@@ -24,7 +24,7 @@ const modal = {
     }
 }
 
-const Modal = ({ showModal, setShowModal }) => {
+const Modal = ({ showModal, setShowModal, clearOrder }) => {
     return (
         <AnimatePresence existBeforeEnter>
             {
@@ -43,7 +43,7 @@ const Modal = ({ showModal, setShowModal }) => {
                                 <Link to="/base">
                                     <button onClick={() => setShowModal(false)}>Mudar</button>
                                 </Link>
-                                <Link to="/">
+                                <Link to="/" onClick={() => clearOrder()}>
                                     <button onClick={() => setShowModal(false)}>Encerrar</button>
                                 </Link>
                             </div>

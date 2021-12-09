@@ -205,10 +205,15 @@ function App() {
 
   }
 
+  const clearOrder = () => {
+    setPizza({ base: [], toppings: [], desserts: []})
+    setTotalPrice(totalPrice = 0)
+  }
+
   return (
     <>
-      <Header />
-      <Modal showModal={showModal} setShowModal={setShowModal} />
+      <Header clearOrder={clearOrder}/>
+      <Modal showModal={showModal} setShowModal={setShowModal} clearOrder={clearOrder}/>
       <AnimatePresence exitBeforeEnter onExitComplete={() => setShowModal(false)}>
         <Switch  key={location.key} location={location}>
           <Route path="/base">

@@ -9,7 +9,7 @@ const Order = ({ pizza, setShowModal, totalPrice }) => {
   useEffect(() => {
     setTimeout(() => {
       setShowModal(true)
-    }, 10000)
+    }, 8000)
   }, [setShowModal])
 
   const containerVariants = {
